@@ -4,7 +4,7 @@ PImage sun;
 
 int r = 0, g = 0, b = 0;
 //sun and moon position
-float x = 0, y = 150, x1 = x+40;
+float x = 0, y = 150, x1 = x+40, angle = 0.05;
 boolean up = true;
 char status = 's';
 
@@ -38,7 +38,8 @@ void sun() {
   //rect(x, y, x1, x1);
 
   //moves sun/moon
-  x++;
+  x+= sin(angle)*17;
+
   if (y<=50) {
     up = false;
   }
