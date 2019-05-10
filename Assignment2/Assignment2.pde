@@ -2,13 +2,12 @@ PImage img;
 PImage moon;
 PImage sun;
 
-//float r = 140-80, g = 189-(80*140/189), b = 255-(80*140/255);
-float r, g, b;
+float r = 0, g = 0, b = 0;
 //sun and moon position
 float x = 0, y = 150, x1 = x+40, angle = 0.05;
 boolean up = true;
 char status = 's';
-String time = "night";
+String time = "day";
 
 void setup() {
   size(728, 376);
@@ -20,7 +19,6 @@ void setup() {
 }
 
 void draw() {
-  System.out.printf("%f  ",-0.001*(x*x)+(64/91)*x+12);
   colors();
   rect(0, 0, 728, 376);
   sun();
@@ -29,16 +27,12 @@ void draw() {
 
 //draws sun and moon
 void sun() {
-  //changes color
+  //draws sun/moon
   if (status == 's') {
     image(sun, x, y);
   } else if (status == 'm') {
     image(moon, x, y);
   }
-
-  //draws sun/moon
-
-  //rect(x, y, x1, x1);
 
   //moves sun/moons
   x+=sin(angle)*20;
@@ -71,11 +65,17 @@ void sun() {
 //draws sky gradient
 void colors() {
 
-  //r = 64*sin((1/116)*x-26.7)+76;
-  //g = 87*sin((1/116)*x-26.7)+102;
-  //b = 98*sin((1/116)*x-26.7)+127;
+  if (time == "day"){
+    r = (-0.0004793*(x*x))+(0.3489*x)+76.5;
+    g = (-0.0006566*(x*x))+(0.4780*x)+102;
+    b = (-0.0008566*(x*x))+(0.6236*x)+141.5;
+  }
+  else{
+    r = (0.0004793*(x*x))-(0.3489*x)+76.5;
+    g = (0.0006566*(x*x))-(0.478*x)+102;
+    b = (0.0008566*(x*x))-(0.6236*x)+141.5;
+  }
   
-  r = -0.001*x*x+(64/91)*x+12;
   fill (r, g, b);
   
 
