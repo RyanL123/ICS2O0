@@ -23,10 +23,13 @@ void setup() {
 }
 
 void draw() {
+  tint(255);
   colors();
   rect(0, 0, 728, 376);
   sun();
+  tint(255,150);
   image(clouds, 0, -100);
+  tint(255);
   image(img, 0, 0);
 }
 
