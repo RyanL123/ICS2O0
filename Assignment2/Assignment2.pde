@@ -6,6 +6,9 @@ PImage clouds;
 //sky color
 float r = 0, g = 0, b = 0;
 
+//water color
+float waterR = 0, waterG = 0, waterB = 0;
+
 //sun and moon position
 float x = 0, y = 150, x1 = x+40, angle = 0.05;
 
@@ -26,8 +29,11 @@ void draw() {
   tint(255);
   colors();
   rect(0, 0, 728, 376);
+  water();
+  //fill(2, 22, 85);
+  //rect(0, 170, 728, 376);
   sun();
-  tint(255,150);
+  tint(255, 150);
   image(clouds, 0, -100);
   tint(255);
   image(img, 0, 0);
@@ -77,4 +83,15 @@ void colors() {
   }
 
   fill (r, g, b);
+}
+
+//lighter
+//84, 209, 255
+//darker
+//48, 55, 255
+void water() {
+  for (int i = 0; i < 206; i++) {
+    fill((-0.17475728)*i+84, (-0.74757281)*i+209, 255);
+    rect(0, i+170, 728, i+170);
+  }
 }
