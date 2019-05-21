@@ -4,8 +4,13 @@ PImage sun;
 PImage clouds;
 
 
-// Front image of beach, trees and island are not drawn but part of Assignment2.png
-// Water, sky, sun/moon, reflections are drawn
+/* Front image of beach, trees and island are not drawn but part of Assignment2.png
+ * Water, sky, sun/moon, reflections are drawn
+ * =====================================================
+ * INSTRUCTIONS
+ * Press C to toggle clouds
+ * =====================================================
+ */
 
 void setup() {
   size(728, 376);
@@ -17,22 +22,35 @@ void setup() {
   strokeWeight(0);
 }
 
+boolean showClouds = false;
+
 void draw() {
   tint(255);
   colors();
   rect(0, 0, 728, 376);
+  stars();
   water();
   sun();
-  tint(255, 150);
-  image(clouds, 0, -100);
+  if (showClouds) {  
+    tint(255, 150);
+    image(clouds, 0, -100);
+  }
   tint(255);
   image(img, 0, 0);
 }
 
-/* functions for drawing each object
- *==============================================================================================
- */
+// functions for drawing each object
 
+// toggles clouds
+//==============================================================================================
+void keyReleased() {
+  if (key == 'c') {
+    showClouds = !showClouds;
+  }
+}
+
+// sun and moon
+//==============================================================================================
 
 //sun and moon position
 float x = 0, y = 150;
@@ -82,6 +100,7 @@ void sun() {
   }
 }
 
+//sky
 //==============================================================================================
 
 //sky color
@@ -104,6 +123,7 @@ void colors() {
   fill (r, g, b);
 }
 
+//water
 //==============================================================================================
 
 //lighter
@@ -141,4 +161,16 @@ void water() {
   //}
   //fill(lighterR, lighterG, lighterB);
   //rect(0, 170, 728, 376);
+}
+
+//stars
+//==============================================================================================
+
+int count = 0;
+void stars() {
+  while (count != 50) {
+    fill(255);
+    rect(random(0, 728), random(0, 376), 5, 5);
+    count++;
+  }
 }
