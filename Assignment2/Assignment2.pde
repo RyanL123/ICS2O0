@@ -1,16 +1,26 @@
-PImage img;
-PImage moon;
-PImage sun;
-PImage clouds;
-
-
 /* Front image of beach, trees and island are not drawn but part of Assignment2.png
  * Water, sky, sun/moon, reflections are drawn
  * =====================================================
  * INSTRUCTIONS
  * Press C to toggle clouds
+ * To listen to the imported sound file, follow the instruction below
+ * Otherwise, comment out the Sound code
+ * 1. Click sketch on the top left of processing
+ * 2. Click import library
+ * 3. Click add library
+ * 4. In the search bar, search for "Sound"
+ * 5. Install the Sound library provided by the official Processing Foundation
  * =====================================================
  */
+
+PImage img;
+PImage moon;
+PImage sun;
+PImage clouds;  
+
+//comment out if you don't need music
+import processing.sound.*;
+SoundFile sweden;
 
 void setup() {
   size(728, 376);
@@ -20,10 +30,14 @@ void setup() {
   sun = loadImage("Sun.png");
   clouds = loadImage("Clouds.png");
   strokeWeight(0);
+
+  //comment out if you don't need music
+  sweden = new SoundFile(this, "sweden.mp3");
+  sweden.play();
 }
 
 boolean showClouds = false;
-ArrayList<Integer> starX = new ArrayList<Integer>(), starY = new ArrayList<Integer>();
+ArrayList<Integer> starX = new ArrayList<Integer>(), starY = new ArrayList<Integer>(), starSize = new ArrayList<Integer>();
 
 void draw() {
   tint(255);
@@ -164,19 +178,27 @@ void water() {
 //==============================================================================================
 
 int count = 0;
+float starAlpha;
 void stars() {
-  starX.clear();
-  starY.clear();
+  starAlpha = -0.001925*(x*x)+1.401*x;
+  if (status != 'm' && x != 0) {
+    starX.clear();
+    starY.clear();
+  }
 
   //Draws 50 stars with random positions
-  while (status == 'm' && count != 50) {
+  while (status != 'm' && count != 50) {
     starX.add(int(random(0, 728)));
     starY.add(int(random(0, 376)));
+    starSize.add(int(random(2, 5)));
     count++;
   }
-  for (int i = 0; i < starX.size(); i++) {
-    fill(255);
-    rect(starX.get(i), starY.get(i), 5, 5 );
+  if (status == 'm') {
+    for (int i = 0; i < starX.size(); i++) {
+      fill (255, 255, 255, starAlpha);
+      noStroke();
+      rect(starX.get(i), starY.get(i), starSize.get(i), starSize.get(i));
+    }
   }
   count = 0;
 }
