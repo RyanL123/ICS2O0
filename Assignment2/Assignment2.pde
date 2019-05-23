@@ -23,11 +23,11 @@ void setup() {
 }
 
 boolean showClouds = false;
+ArrayList<Integer> starX = new ArrayList<Integer>(), starY = new ArrayList<Integer>();
 
 void draw() {
   tint(255);
-  colors();
-  rect(0, 0, 728, 376);
+  sky();
   stars();
   water();
   sun();
@@ -41,15 +41,18 @@ void draw() {
 
 // functions for drawing each object
 
-// toggles clouds
 //==============================================================================================
+//Toggles clouds
+//==============================================================================================
+
 void keyReleased() {
   if (key == 'c') {
     showClouds = !showClouds;
   }
 }
 
-// sun and moon
+//==============================================================================================
+//Sun and moon
 //==============================================================================================
 
 //sun and moon position
@@ -100,14 +103,15 @@ void sun() {
   }
 }
 
-//sky
+//==============================================================================================
+//Sky
 //==============================================================================================
 
 //sky color
 float r, g, b;
 
 //draws sky color
-void colors() {
+void sky() {
 
   //draws sky color depending on time of day
   if (status == 's') {
@@ -121,9 +125,11 @@ void colors() {
   }
 
   fill (r, g, b);
+  rect(0, 0, 728, 376);
 }
 
-//water
+//==============================================================================================
+//Water
 //==============================================================================================
 
 //lighter
@@ -134,11 +140,14 @@ void colors() {
 float lighterR, lighterG, lighterB;
 float darkerR, darkerG, darkerB;
 void water() {
+  //gradient for daytime
   if (status == 's') {
     lighterR = -0.0001245*(x*x)+(0.09066*x)+67.50;
     lighterG = -0.0004566*(x*x)+(+0.3324*x)+148.5;
     lighterB = -0.0005887*(x*x)+(0.4286*x)+177.0;
-  } else {
+  } 
+  //gradient for nighttime
+  else {
     lighterR = 0.0001245*(x*x)-(0.09066*x)+67.50;
     lighterG = 0.0004566*(x*x)-(0.3324*x)+148.5;
     lighterB = 0.0005887*(x*x)-(0.4286*x)+177.0;
@@ -148,29 +157,26 @@ void water() {
     fill(lighterR-i, lighterG-i, lighterB-i);
     rect(0, i+170, 728, i+170);
   }
-
-  //darker color of gradient
-  //if (status == 's') {
-  //  darkerR = -0.0001811*(x*x)+(0.1319*x)+24.00;
-  //  darkerG = -0.0002076*(x*x)+(0.1511*x)+27.50;
-  //  darkerB = -0.0008830*(x*x)+(0.6429*x)+138.0;
-  //} else {
-  //  darkerR = 0.0001811*(x*x)-(0.1319*x)+24.00;
-  //  darkerG = 0.0002076*(x*x)-(0.1511*x)+27.50;
-  //  darkerB = 0.0008830*(x*x)-(0.6429*x)+138.0;
-  //}
-  //fill(lighterR, lighterG, lighterB);
-  //rect(0, 170, 728, 376);
 }
 
-//stars
+//==============================================================================================
+//Stars
 //==============================================================================================
 
 int count = 0;
 void stars() {
-  while (count != 50) {
-    fill(255);
-    rect(random(0, 728), random(0, 376), 5, 5);
+  starX.clear();
+  starY.clear();
+
+  //Draws 50 stars with random positions
+  while (status == 'm' && count != 50) {
+    starX.add(int(random(0, 728)));
+    starY.add(int(random(0, 376)));
     count++;
   }
+  for (int i = 0; i < starX.size(); i++) {
+    fill(255);
+    rect(starX.get(i), starY.get(i), 5, 5 );
+  }
+  count = 0;
 }
