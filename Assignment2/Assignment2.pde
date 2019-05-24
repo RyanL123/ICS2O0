@@ -1,17 +1,21 @@
-/* Front image of beach, trees and island are not drawn but part of Assignment2.png
- * Water, sky, sun/moon, reflections are drawn
- * =====================================================
- * INSTRUCTIONS
- * Press C to toggle clouds
- * To listen to the imported sound file, follow the instruction below
- * Otherwise, comment out the Sound code
- * 1. Click sketch on the top left of processing
- * 2. Click import library
- * 3. Click add library
- * 4. In the search bar, search for "Sound"
- * 5. Install the Sound library provided by the official Processing Foundation
- * =====================================================
- */
+/*Recreation of a interactive Minecraft World with processing
+
+  Front image of beach, trees and island are not drawn but part of Assignment2.png
+  Water, sky, sun/moon, reflections are drawn
+  =====================================================
+  INSTRUCTIONS
+  Press C to toggle clouds
+  Press S to toggle stars (only works at night)
+  To listen to ambient background Minecraft music for a more immersive experience, follow the instruction below
+  Otherwise, comment out the Sound code
+  1. Click sketch on the top left of processing
+  2. Click import library
+  3. Click add library
+  4. In the search bar, search for "Sound"
+  5. Install the Sound library provided by the official Processing Foundation
+  =====================================================
+  
+*/
 
 PImage img;
 PImage moon;
@@ -36,7 +40,7 @@ void setup() {
   sweden.play();
 }
 
-boolean showClouds = false;
+boolean showClouds = true;
 ArrayList<Integer> starX = new ArrayList<Integer>(), starY = new ArrayList<Integer>(), starSize = new ArrayList<Integer>();
 
 void draw() {
@@ -56,12 +60,14 @@ void draw() {
 // functions for drawing each object
 
 //==============================================================================================
-//Toggles clouds
+//Toggles clouds/stars
 //==============================================================================================
 
 void keyReleased() {
   if (key == 'c') {
     showClouds = !showClouds;
+  } else if (key == 's') {
+    showStar = !showStar;
   }
 }
 
@@ -179,6 +185,8 @@ void water() {
 
 int count = 0;
 float starAlpha;
+boolean showStar = true;
+
 void stars() {
   starAlpha = -0.001925*(x*x)+1.401*x;
   if (status != 'm' && x != 0) {
@@ -197,7 +205,9 @@ void stars() {
     for (int i = 0; i < starX.size(); i++) {
       fill (255, 255, 255, starAlpha);
       noStroke();
-      rect(starX.get(i), starY.get(i), starSize.get(i), starSize.get(i));
+      if (showStar) {
+        rect(starX.get(i), starY.get(i), starSize.get(i), starSize.get(i));
+      }
     }
   }
   count = 0;
