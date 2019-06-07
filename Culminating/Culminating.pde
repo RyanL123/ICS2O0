@@ -5,19 +5,22 @@ void setup() {
 
 void draw() {
   r();
+  y();
 }
 
 void r() {
+  strokeWeight(2);
+
   //left bar
   for (int i = 200; i <= 500; i+=10) {
     line(100, i, 150, i);
   }
-  
+
   //horizontal bar
   for (int i = 150; i <= 200; i+= 5) {
     line(i, 350, i, 200);
   }
-  
+
   //circle
   int angle = 90;
   while (angle != 270) {
@@ -27,7 +30,27 @@ void r() {
     line(200, 275, cos(radians(angle))*75+200, sin(radians(angle))*75+275);
     angle-=10;
   }
-  for (float i = 150; i <= 300; i+=10){
-    line(i, i+200, i+50, i+200);
+
+  //diagonal bar
+  for (float i = 150; i <= 300; i+=10) {
+    line(i/2+75, i+200, i/2+130, i+200);
   }
+}
+
+void y() {
+  strokeWeight(3);
+  //leaf
+  fill(67, 188, 11);
+  ellipse(475, 250, 300, 300);
+  
+  //branches
+  fill(122, 62, 23);
+  beginShape();
+  vertex(500, 500);
+  vertex(450, 500);
+  bezierVertex(450, 500, 450, 250, 350, 200);
+  bezierVertex(350, 200, 475, 250, 475, 350);
+  bezierVertex(475, 350, 475, 250, 600, 200);
+  bezierVertex(600, 200, 500, 250, 500, 500);
+  endShape();
 }
