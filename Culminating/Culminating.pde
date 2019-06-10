@@ -13,11 +13,13 @@ void r() {
 
   //left bar
   for (int i = 200; i <= 500; i+=10) {
+    stroke(pow(radians(i), 3), pow(radians(i), 2), pow(radians(i), 1));
     line(100, i, 150, i);
   }
 
   //horizontal bar
-  for (int i = 150; i <= 200; i+= 5) {
+  for (int i = 150; i <= 200; i+= 10) {
+    stroke(pow(radians(i), 3), pow(radians(i), 5), pow(radians(i), 3));
     line(i, 350, i, 200);
   }
 
@@ -33,17 +35,20 @@ void r() {
 
   //diagonal bar
   for (float i = 150; i <= 300; i+=10) {
+    stroke(pow(radians(i), 2), pow(radians(i), 3), pow(radians(i), 4));
     line(i/2+75, i+200, i/2+130, i+200);
   }
 }
 
 void y() {
   strokeWeight(3);
+  stroke(0);
   //leaf
   fill(67, 188, 11);
-  ellipse(475, 250, 300, 300);
-  
+  ellipse(475, 225, 300, 250);
+
   //branches
+  
   fill(122, 62, 23);
   beginShape();
   vertex(500, 500);
