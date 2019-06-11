@@ -1,3 +1,6 @@
+int angle = 90;
+char angleDir = 's';
+
 void setup() {
   size(2000, 700);
   background(255);
@@ -6,36 +9,56 @@ void setup() {
 void draw() {
   r();
   y();
+  
+  //draws the unit circle
+  if (angleDir == 's'){
+    angle-=10;
+  }
+  else if (angleDir == 'a'){
+    angle+=10;
+  }
+  
 }
 
 void r() {
+  int time = millis();
   strokeWeight(2);
 
   //left bar
   for (int i = 200; i <= 500; i+=10) {
-    stroke(pow(radians(i), 3), pow(radians(i), 2), pow(radians(i), 1));
+    stroke(pow(radians(i), 3), pow(radians(i), 2), time%255);
     line(100, i, 150, i);
   }
 
   //horizontal bar
   for (int i = 150; i <= 200; i+= 10) {
-    stroke(pow(radians(i), 3), pow(radians(i), 5), pow(radians(i), 3));
+    stroke(pow(radians(i), 3), pow(radians(i), 5), time%255);
     line(i, 350, i, 200);
   }
 
-  //circle
-  int angle = 90;
-  while (angle != 270) {
-    if (angle == 0) {
-      angle = 360;
-    }
-    line(200, 275, cos(radians(angle))*75+200, sin(radians(angle))*75+275);
-    angle-=10;
+  //UNIT CIRCLE
+
+  if (angle == 0 && angleDir == 's'){
+    angle = 360;
   }
+  else if (angle == 360 && angleDir == 'a'){
+    angle = 0;
+  }
+  
+  if (angle == 270 && angleDir == 's'){
+    angleDir = 'a';
+  }
+  else if (angle == 90 && angleDir == 'a'){
+    angleDir = 's';
+  }
+  
+
+  line(200, 275, cos(radians(angle))*75+200, sin(radians(angle))*75+275);
+
 
   //diagonal bar
   for (float i = 150; i <= 300; i+=10) {
-    stroke(pow(radians(i), 2), pow(radians(i), 3), pow(radians(i), 4));
+    stroke(pow(radians(i), 2), pow(radians(i), 3), time%255);
     line(i/2+75, i+200, i/2+130, i+200);
   }
 }
@@ -48,7 +71,7 @@ void y() {
   ellipse(475, 225, 300, 250);
 
   //branches
-  
+
   fill(122, 62, 23);
   beginShape();
   vertex(500, 500);
