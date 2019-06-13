@@ -21,9 +21,10 @@ void draw() {
     backgroundColor+=5;
     background(backgroundColor);
   }
-  
+
   r();
   y();
+  a();
 
 
   //draws the unit circle
@@ -82,13 +83,12 @@ void y() {
   strokeWeight(3);
   stroke(0);
 
-  if (mousePressed) {
-    stroke(time%127*random(1, 2), time%127*random(1, 3), time%127*random(1, 4));
-  }
+
+  stroke(time%127*random(1, 2), time%127*random(1, 3), time%127*random(1, 4));
+
 
   //left branch
   for (int i = 200; i <= 300; i+=10) {
-
     line(i+100, i, i+150, i);
   }
 
@@ -105,4 +105,23 @@ void y() {
 }
 
 void a() {
+  stroke(0);
+  int aLeftSide = 550;
+  int aRightSide = 660;
+  
+  //left side
+  for (int i = 500; i >= 200; i-=10) {
+    line(aLeftSide, i, aLeftSide+50, i);
+    aLeftSide += 3;
+  }
+  
+  //right side
+  for (int i = 200; i <= 500; i+=10) {
+    line(aRightSide, i, aRightSide+50, i);
+    aRightSide += 3;
+  }
+}
+
+void n(){
+  
 }
