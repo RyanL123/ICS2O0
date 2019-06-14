@@ -22,10 +22,16 @@ void draw() {
     background(backgroundColor);
   }
 
+  if (aUp && aLeftSideY == 200) {
+    aUp = !aUp;
+  } else if (!aUp && aLeftSideY == 500) {
+    aUp = !aUp;
+  }
+
   r();
   y();
   a();
-
+  n();
 
   //draws the unit circle
   if (angleDir == 's') {
@@ -78,7 +84,7 @@ void r() {
 
 
 void y() {
-  int yRightBranch = 400;
+  int yRightBranch = 380;
   int time = millis()/5;
   strokeWeight(3);
   stroke(0);
@@ -89,7 +95,7 @@ void y() {
 
   //left branch
   for (int i = 200; i <= 300; i+=10) {
-    line(i+100, i, i+150, i);
+    line(i+80, i, i+130, i);
   }
 
   //right branch
@@ -100,28 +106,38 @@ void y() {
 
   //middle pillar
   for (int i = 300; i<= 500; i+=10) {
-    line(400, i, 450, i);
+    line(380, i, 430, i);
   }
 }
+
+int aLeftSideX = 500;
+int aRightSideX = 610;
+int aLeftSideY = 500;
+boolean aUp = true;
 
 void a() {
   stroke(0);
-  int aLeftSide = 550;
-  int aRightSide = 660;
-  
+
+  line(aLeftSideX, aLeftSideY, aLeftSideX+50, aLeftSideY);
+
   //left side
-  for (int i = 500; i >= 200; i-=10) {
-    line(aLeftSide, i, aLeftSide+50, i);
-    aLeftSide += 3;
+  if (aUp) {
+    aLeftSideY -=10;
+    aLeftSideX += 3;
+  } else {
+    aLeftSideY +=10;
+    aLeftSideX -= 3;
   }
   
-  //right side
-  for (int i = 200; i <= 500; i+=10) {
-    line(aRightSide, i, aRightSide+50, i);
-    aRightSide += 3;
-  }
+  ////right side
+  //for (int i = 200; i <= 500; i+=10) {
+  //  line(aRightSideX, i, aRightSideX+50, i);
+  //  aRightSideX += 3;
+  //}
 }
 
-void n(){
-  
+void n() {
+  for (int i = 200; i <= 500; i+=10) {
+    line(800, i, 850, i);
+  }
 }
